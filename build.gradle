@@ -1,5 +1,5 @@
 plugins {
-  id 'org.springframework.boot' version '3.0.1'
+  id 'org.springframework.boot' version '3.0.2'
   id 'io.spring.dependency-management' version '1.1.0'
   id 'java'
 }
@@ -7,7 +7,7 @@ plugins {
 apply plugin: 'java'
 
 group = 'org.springframework.samples'
-version = '3.0.0'
+version = '3.0.2-SNAPSHOT'
 sourceCompatibility = '17'
 
 repositories {
@@ -25,7 +25,7 @@ dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-validation'
   implementation 'javax.cache:cache-api'
   implementation 'jakarta.xml.bind:jakarta.xml.bind-api'
-  runtimeOnly 'org.springframework.boot:spring-boot-starter-actuator'
+//  runtimeOnly 'org.springframework.boot:spring-boot-starter-actuator'
   runtimeOnly "org.webjars.npm:bootstrap:${webjarsBootstrapVersion}"
   runtimeOnly "org.webjars.npm:font-awesome:${webjarsFontawesomeVersion}"
   runtimeOnly 'com.github.ben-manes.caffeine:caffeine'
@@ -34,6 +34,16 @@ dependencies {
   runtimeOnly 'org.postgresql:postgresql'
   developmentOnly 'org.springframework.boot:spring-boot-devtools'
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // Micrometer tracing
+    // see https://micrometer.io/docs/tracing#_supported_tracers
+    // see https://springbootlearning.medium.com/using-micrometer-to-trace-your-spring-boot-app-1fe6ff9982ae
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation platform('io.micrometer:micrometer-tracing-bom:latest.release')
+    implementation 'io.micrometer:micrometer-observation'
+    implementation 'io.micrometer:micrometer-tracing'
+    implementation 'io.micrometer:micrometer-tracing-bridge-otel'
+    implementation 'io.opentelemetry:opentelemetry-exporter-otlp'
 }
 
 tasks.named('test') {
