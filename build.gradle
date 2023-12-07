@@ -1,13 +1,14 @@
 plugins {
-  id 'org.springframework.boot' version '3.0.2'
-  id 'io.spring.dependency-management' version '1.1.0'
   id 'java'
+  id 'org.springframework.boot' version '3.2.0'
+  id 'io.spring.dependency-management' version '1.1.4'
+  id 'org.graalvm.buildtools.native' version '0.9.28'
 }
 
 apply plugin: 'java'
 
 group = 'org.springframework.samples'
-version = '3.0.2-SNAPSHOT'
+version = '3.2.2-SNAPSHOT'
 sourceCompatibility = '17'
 
 repositories {
@@ -15,7 +16,7 @@ repositories {
 }
 
 ext.webjarsFontawesomeVersion = "4.7.0"
-ext.webjarsBootstrapVersion = "5.1.3"
+ext.webjarsBootstrapVersion = "5.3.2"
 
 dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-cache'
@@ -25,7 +26,7 @@ dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-validation'
   implementation 'javax.cache:cache-api'
   implementation 'jakarta.xml.bind:jakarta.xml.bind-api'
-//  runtimeOnly 'org.springframework.boot:spring-boot-starter-actuator'
+  runtimeOnly 'org.springframework.boot:spring-boot-starter-actuator'
   runtimeOnly "org.webjars.npm:bootstrap:${webjarsBootstrapVersion}"
   runtimeOnly "org.webjars.npm:font-awesome:${webjarsFontawesomeVersion}"
   runtimeOnly 'com.github.ben-manes.caffeine:caffeine'
@@ -34,11 +35,14 @@ dependencies {
   runtimeOnly 'org.postgresql:postgresql'
   developmentOnly 'org.springframework.boot:spring-boot-devtools'
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
+  testImplementation 'org.springframework.boot:spring-boot-testcontainers'
+  testImplementation 'org.springframework.boot:spring-boot-docker-compose'
+  testImplementation 'org.testcontainers:junit-jupiter'
+  testImplementation 'org.testcontainers:mysql'
 
     // Micrometer tracing
     // see https://micrometer.io/docs/tracing#_supported_tracers
     // see https://springbootlearning.medium.com/using-micrometer-to-trace-your-spring-boot-app-1fe6ff9982ae
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation platform('io.micrometer:micrometer-tracing-bom:latest.release')
     implementation 'io.micrometer:micrometer-observation'
     implementation 'io.micrometer:micrometer-tracing'
